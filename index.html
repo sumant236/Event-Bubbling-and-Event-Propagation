@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+</head>
+<body>
+    <div>
+        Name: <input type="text" id="name" placeholder="Name">
+        Phone No.: <input type="tel" id="mobile" placeholder="1234567890">
+        <button id="add">Add User</button>
+    </div>
+    <div id="container"></div>
+
+    <script type="text/javascript">
+        window.addEventListener('load', ()=>{
+            const btn = document.querySelector('#add');
+            btn.addEventListener('click', addUser)
+        })
+
+        function addUser() {
+            const name = document.getElementById('name').value;
+            const mobile = document.getElementById('mobile').value;
+            var userData = new Data(name, mobile);
+            userData.showData();
+        }
+
+        class Data {
+            constructor(name, mobile){
+                this.name = name;
+                this.mobile = mobile;
+            }
+            showData (){
+                const cont = document.getElementById('container')
+                cont.style.display = 'flex';
+                cont.style.gap = '2rem'
+                var card = document.createElement('div');
+                card.style.display = 'flex';
+                card.style.flexDirection = 'column';
+                card.style.gap = '1rem';
+                card.style.width = '200px'
+                var p1 = document.createElement('p');
+                p1.textContent = `Name: ${this.name}`
+                var butn = document.createElement('button');
+                butn.textContent = 'Show/hide Phone Number'
+                var p2 = document.createElement('p');
+                p2.textContent = `Phone No.: ${this.mobile}`
+                p2.style.display = 'none';
+                butn.addEventListener('click', ()=>{
+                    if(p2.style.display == 'none'){
+                        event.stopImmediatePropagation();
+                        p2.style.display = 'block';
+                    }
+                    else{
+                        event.stopImmediatePropagation();
+                        p2.style.display = 'none';
+                    }
+                })
+                card.append(p1, butn, p2);
+                cont.append(card);
+            }
+        }
+    </script>
+</body>
+</html>
